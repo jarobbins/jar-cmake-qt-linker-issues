@@ -18,13 +18,6 @@ find_package(Qt5Core REQUIRED)
 ### build a list of DLLs to be copied over for runtime use
 set(RunTimeFiles)
 
-# compiler flags
-IF (MSVC)
-	ADD_DEFINITIONS("/W3")
-ENDIF(MSVC)
-
-ADD_DEFINITIONS(-DPC_PLATFORM)
-
 add_library( test_lib1 STATIC
 			 TestLibrary1.cpp
 			 )
@@ -32,6 +25,7 @@ qt5_use_modules(test_lib1 Core)
 
 ### set up the main application
 add_executable(test_app main.cpp)
+target_link_libraries(test_app test_lib1)
 qt5_use_modules(test_app Core)
 
 get_target_property(QtCore_location Qt5::Core LOCATION)
